@@ -1,0 +1,76 @@
+<!doctype html>
+<head>
+<title>Indoor Map testing</title>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+  <style>
+    body {
+      background-color: black;
+    }
+    svg {
+      border: 1px solid white;
+    }
+
+  </style>
+
+
+
+</head>
+<body>
+  <div id="map">
+
+  </div>
+</body>
+  <script>
+
+  var width = 500;
+  var height = 500;
+  var feetToPixel = function(ft){
+    var foot = width/15;
+    return ft*foot;
+  }
+
+  var coorsToString = function(coors, convertToPixel){
+    var result = '';
+
+    for(var i = 0; i < coors.length; i++){
+      var x = coors[i][0];
+      var y = coors[i][1];
+      if(convertToPixel){
+        x = feetToPixel(x);
+        y = feetToPixel(y);
+      }
+
+      result = result+x+','+y+' ';
+    }
+
+    return result;
+  }
+
+  console.log(coorsToString([[0,0], [10,0],[10,10],[0,10]],true))
+
+  var svg = d3.select('#map').append('svg')
+              .attr('width',width)
+              .attr('height',height);
+
+
+  var floorplan = svg.append('polygon')
+                    .attr('points',coorsToString([
+                      [0,0],
+                      [10,0],
+                      [10,5],
+                      [15,5],
+                      [15,10],
+                      [10,10],
+                      [0,10]
+                      ],true))
+                    .attr('fill','white')
+                    .attr('stroke','blue');
+
+
+
+
+  </script>
+
+</html>
