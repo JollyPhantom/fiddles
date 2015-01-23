@@ -31,8 +31,10 @@ $(document).ready(function(){
 
   // converts the cartesian coordinates (origin at bottom left) to coordinates for svg (origin at top left)
   var cartesianToSVGCoords = function(x,y,w,h) {
-
-  }
+    // this function utilizes the variables roomHeight and roomWidth in order figure out the SVG coordinates
+    y = roomHeight - h;
+    return [x,y,w,h];
+  };
 
   var createShelves = function(x,y,w,h){
     return {
