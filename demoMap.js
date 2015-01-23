@@ -47,12 +47,9 @@ $(document).ready(function(){
   var floorplan = svg.append('polygon')
                     .attr('points',coorsToString([
                       [0,0],
-                      [10,0],
-                      [10,5],
-                      [15,5],
-                      [15,10],
-                      [10,10],
-                      [0,10]
+                      [0,36],
+                      [20,36],
+                      [36,0]
                       ],true))
                     .attr('fill','white')
                     .attr('stroke','blue');
