@@ -1,0 +1,19 @@
+.viewPort{
+
+}
+
+.startLoc {
+  r: 15,
+  fill: 'pink',
+  stroke: 'plum',
+  stroke-width: '5',
+}
+.endLoc{
+  r :15,
+  fill: 'aqua',
+  stroke: 'blue',
+  stroke-width: '5',
+}
+.routeSegment{
+  fill: 'rebeccapurple';
+}
