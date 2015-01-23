@@ -29,6 +29,11 @@ $(document).ready(function(){
     return result;
   }
 
+  // converts the cartesian coordinates (origin at bottom left) to coordinates for svg (origin at top left)
+  var cartesianToSVGCoords = function(x,y,w,h) {
+
+  }
+
   var createShelves = function(x,y,w,h){
     return {
       x:feetToPixel(x),
@@ -51,8 +56,8 @@ $(document).ready(function(){
                       [20,36],
                       [36,0]
                       ],true))
-                    .attr('fill','white')
-                    .attr('stroke','blue');
+                    .attr('fill','white');
+                    // .attr('stroke','blue');
 
   var shelf1  = createShelves(1,1,1,8);
   var shelf2  = createShelves(8,1,1,4);
