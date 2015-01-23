@@ -21,11 +21,13 @@ $(document).ready(function(){
   var width = $(document).width();
   var height = $(document).height();
   var scale = roomWidth;
+
   var feetToPixel = function(ft){
     var foot = width/scale;
     return ft*foot;
   }
 
+  // coors is in array
   var coorsToString = function(coors, convertToPixel){
     var result = '';
     for(var i = 0; i < coors.length; i++){
@@ -41,21 +43,32 @@ $(document).ready(function(){
   }
 
   // converts the cartesian coordinates (origin at bottom left) to coordinates for svg (origin at top left)
-  var cartesianToSVGCoords = function(x,y,w,h) {
+  var cartesianToSVGCoords = function(coords) {
+    // coords is an array in the format of [x,y,w,h];
     // this function utilizes the variables roomHeight and roomWidth in order figure out the SVG coordinates
-    y = roomHeight - h;
-    var coords = [x,y,w,h];
+    // y = roomHeight - h;
+    var _coords = coords.slice();
+    _coords[1] = roomHeight - coords[3];
     // what is returned is not actual in the pixel coordiantes, but the x,y where the origin is the top left corner of the room
-    return coords.join(',');
+    return _coords;
   };
 
   // creates an shelf object with x,y coords and width and height in pixels
   var createShelves = function(x,y,w,h){
-    return {
-      x:feetToPixel(x),
-      y:feetToPixel(y),
-      width:feetToPixel(w),
-      height:feetToPixel(h)
+    if ( typeof arguments[0] === 'number' ) {
+      return {
+        x:feetToPixel(x),
+        y:feetToPixel(y),
+        width:feetToPixel(w),
+        height:feetToPixel(h)
+      };
+    } else if ( Array.isArray(arguments[0]) ) {
+      return {
+        x: feetToPixel(arguments[0][0]),
+        y: feetToPixel(arguments[0][1]),
+        width: feetToPixel(arguments[0][2]),
+        height: feetToPixel(arguments[0][3])
+      };
     }
   }
 
@@ -78,8 +91,11 @@ $(document).ready(function(){
 
   // creates an array of 'shelves' that have the coords in pixels/svg format
   shelvesFt.forEach(function(shelf, index){
-    shelves.push(createShelves(shelf.join(',')));
+    console.log(shelf);
+    shelves.push(createShelves(shelf));
   });
+
+  console.log(shelves);
   // var shelf1  = createShelves(1,1,1,8);
   // var shelf2  = createShelves(8,1,1,4);
   // var shelves = [shelf1,shelf2];
